@@ -28,7 +28,7 @@ def generate_image(message):
     bot.reply_to(message, "⏳ Генерирую изображение, подожди пару секунд...")
     
     # 100% правильный, официальный URL для точной генерации картинок Flux
-    image_url = f"https://image.pollinations.ai/prompt/{requests.utils.quote(prompt)}?width=1024&height=1024&nologo=true"
+    image_url = f"https://api.varlamov.dev/v1/image/free?p={requests.utils.quote(prompt)}"
     
     try:
         # Скачиваем сгенерированную картинку в память сервера и отправляем в телеграм
@@ -43,7 +43,7 @@ def handle_text(message):
     bot.send_chat_action(message.chat.id, 'typing')
     
     # 100% правильный и бесплатный URL для текста без блокировок и лимитов
-    url = f"https://text.pollinations.ai/{requests.utils.quote(message.text)}?private=true"
+    url = f"https://api.varlamov.dev/v1/chat/free?q={requests.utils.quote(message.text)}"
     
     try:
         response = requests.get(url, timeout=20)
