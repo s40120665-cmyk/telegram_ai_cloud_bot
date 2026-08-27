@@ -27,7 +27,7 @@ def generate_image(message):
     bot.reply_to(message, "⏳ Генерирую изображение, подожди пару секунд...")
     
     # Новый неубиваемый шлюз для картинок
-    url = f"https://api.aiyana.dev/image?p={requests.utils.quote(prompt)}"
+    url = f"https://image.pollinations.ai/prompt/{requests.utils.quote(prompt)}?width=1024&height=1024&nologo=true"
     
     try:
         res = requests.get(url, timeout=30)
@@ -43,7 +43,7 @@ def handle_text(message):
     bot.send_chat_action(message.chat.id, 'typing')
     
     # Новый рабочий текстовый шлюз без блокировок хостинга
-    url = f"https://api.aiyana.dev/chat?q={requests.utils.quote(message.text)}"
+    url = f"https://text.pollinations.ai/{requests.utils.quote(message.text)}?
     
     try:
         res = requests.get(url, timeout=20)
