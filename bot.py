@@ -2,8 +2,8 @@ import os
 import telebot
 import requests
 
-# Забираем токен из настроек сервера (чтобы не светить его в коде)
-BOT_TOKEN = os.environ.get("BOT_TOKEN")
+# Твой токен вшит прямо в код
+BOT_TOKEN = "8826304105:AAGPg7LX8OAF7InzK5jfWgMRDCGZZ__IysU"
 bot = telebot.TeleBot(BOT_TOKEN)
 
 # Хранилище истории диалогов {chat_id: [список сообщений]}
@@ -22,7 +22,7 @@ def get_ai_response(chat_id, user_text):
         chat_histories[chat_id] = chat_histories[chat_id][-6:]
         
     # Формируем запрос к бесплатному ИИ
-    url = "https://text.pollinations.ai/"
+    url = "https://pollinations.ai"
     payload = {
         "messages": chat_histories[chat_id],
         "model": "openai" # Используем продвинутую модель
@@ -61,7 +61,7 @@ def generate_image(message):
     bot.reply_to(message, "⏳ Генерирую изображение, подожди пару секунд...")
     
     # Формируем ссылку на бесплатный генератор картинок Flux
-    image_url = f"https://image.pollinations.ai/prompt/{requests.utils.quote(prompt)}?width=1024&height=1024&nologo=true"
+    image_url = f"https://pollinations.ai{requests.utils.quote(prompt)}?width=1024&height=1024&nologo=true"
     
     try:
         # Скачиваем сгенерированную картинку в память сервера и отправляем в телеграм
@@ -72,7 +72,7 @@ def generate_image(message):
 
 @bot.message_handler(func=lambda message: True)
 def handle_text(message):
-    # Показываем статус \"печатает...\", пока ИИ думает
+    # Показываем статус "печатает...", пока ИИ думает
     bot.send_chat_action(message.chat.id, 'typing')
     
     # Получаем ответ от ИИ
