@@ -26,7 +26,7 @@ def generate_image(message):
     bot.reply_to(message, "⏳ Генерирую изображение, подожди пару секунд...")
     
     # 100% правильный URL для точной генерации картинок Flux без блокировок
-    image_url = "https://" + "image" + "." + "pollinations" + "." + "ai/prompt/" + requests.utils.quote(prompt) + "?width=1024&height=1024&nologo=true"
+    image_url = "https://image.pollinations.ai/p/" + requests.utils.quote(prompt) + "?width=1024&height=1024&nologo=true"
     
     try:
         img_data = requests.get(image_url, timeout=30).content
@@ -39,7 +39,7 @@ def handle_text(message):
     bot.send_chat_action(message.chat.id, 'typing')
     
     # 100% правильный и бесплатный URL для текста без лимитов и блокировок
-    url = "https://" + "text" + "." + "pollinations" + "." + "ai/" + requests.utils.quote(message.text) + "?private=true"
+    url = f"https://api.aiyana.dev/chat?q={requests.utils.quote(message.text)}"
     
     try:
         response = requests.get(url, timeout=20)
