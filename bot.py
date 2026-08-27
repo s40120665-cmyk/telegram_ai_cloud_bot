@@ -21,15 +21,11 @@ def get_ai_response(chat_id, user_text):
     if len(chat_histories[chat_id]) > 6:
         chat_histories[chat_id] = chat_histories[chat_id][-6:]
         
-    # Формируем запрос к бесплатному ИИ
-    url = "https://pollinations.ai"
-    payload = {
-        "messages": chat_histories[chat_id],
-        "model": "openai" # Используем продвинутую модель
-    }
+       # Формируем запрос к бесплатному ИИ
+    url = f"https://text.pollinations.ai/{requests.utils.quote(user_text)}?private=true"
     
     try:
-        response = requests.post(url, json=payload, timeout=15)
+        response = requests.get(url, timeout=15)
         if response.status_code == 200:
             ai_text = response.text
             # Сохраняем ответ ИИ в историю для контекста
@@ -61,7 +57,7 @@ def generate_image(message):
     bot.reply_to(message, "⏳ Генерирую изображение, подожди пару секунд...")
     
     # Формируем ссылку на бесплатный генератор картинок Flux
-    image_url = f"https://pollinations.ai{requests.utils.quote(prompt)}?width=1024&height=1024&nologo=true"
+    image_url = f"https://image.pollinations.ai/p/{requests.utils.quote(prompt)}?width=1024&height=1024&nologo=true"
     
     try:
         # Скачиваем сгенерированную картинку в память сервера и отправляем в телеграм
