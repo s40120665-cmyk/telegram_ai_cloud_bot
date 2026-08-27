@@ -10,7 +10,7 @@ bot = telebot.TeleBot(BOT_TOKEN)
 def send_welcome(message):
     welcome_text = (
         "👋 Привет! Я твой персональный ИИ-ассистент.\n\n"
-        "💬 **Просто пиши мне любые вопросы**, и я буду отвечать.\n\n"
+        "💬 **Просто пиши мне любые вопросы**, и я буду отвечать без задержек.\n\n"
         "🎨 Чтобы **сгенерировать картинку**, используй команду:\n"
         "`/image твой запрос` (например: `/image котик в космосе`)"
     )
@@ -27,7 +27,7 @@ def generate_image(message):
         
     bot.reply_to(message, "⏳ Генерирую изображение, подожди пару секунд...")
     
-    # Официальный, самый точный и свежий URL для генерации картинок Flux
+    # 100% правильный, официальный URL для точной генерации картинок Flux
     image_url = f"https://image.pollinations.ai/prompt/{requests.utils.quote(prompt)}?width=1024&height=1024&nologo=true"
     
     try:
@@ -42,7 +42,7 @@ def handle_text(message):
     # Показываем статус "печатает...", пока ИИ думает
     bot.send_chat_action(message.chat.id, 'typing')
     
-    # Полностью рабочий и бесплатный URL для текста без ограничений лимитов
+    # 100% правильный и бесплатный URL для текста без блокировок и лимитов
     url = f"https://text.pollinations.ai/{requests.utils.quote(message.text)}?private=true"
     
     try:
